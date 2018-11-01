@@ -190,25 +190,25 @@ extension UIImage {
   }
 }
 
-extension UIImage {
-  /**
-   Asynchronously load images with a completion block.
-   - Parameter URL: A URL destination to fetch the image from.
-   - Parameter completion: A completion block that is executed once the image
-   has been retrieved.
-   */
-  open class func contentsOfURL(url: URL, completion: @escaping ((UIImage?, Error?) -> Void)) {
-    URLSession.shared.dataTask(with: URLRequest(url: url)) { [completion = completion] (data: Data?, response: URLResponse?, error: Error?) in
-      Motion.async {
-        if let v = error {
-          completion(nil, v)
-        } else if let v = data {
-          completion(UIImage(data: v), nil)
-        }
-      }
-      }.resume()
-  }
-}
+//extension UIImage {
+//  /**
+//   Asynchronously load images with a completion block.
+//   - Parameter URL: A URL destination to fetch the image from.
+//   - Parameter completion: A completion block that is executed once the image
+//   has been retrieved.
+//   */
+//  open class func contentsOfURL(url: URL, completion: @escaping ((UIImage?, Error?) -> Void)) {
+//    URLSession.shared.dataTask(with: URLRequest(url: url)) { [completion = completion] (data: Data?, response: URLResponse?, error: Error?) in
+//      Motion.async {
+//        if let v = error {
+//          completion(nil, v)
+//        } else if let v = data {
+//          completion(UIImage(data: v), nil)
+//        }
+//      }
+//    }.resume()
+//  }
+//}
 
 extension UIImage {
   /**
@@ -298,7 +298,7 @@ extension UIImage {
     let screenScale = Screen.scale
     let imageRect = CGRect(origin: .zero, size: size)
     let hasBlur = radius > CGFloat(Float.ulpOfOne)
-    let hasSaturationChange = fabs(saturationDeltaFactor - 1.0) > CGFloat(Float.ulpOfOne)
+    let hasSaturationChange = abs(saturationDeltaFactor - 1.0) > CGFloat(Float.ulpOfOne)
     
     if hasBlur || hasSaturationChange {
       UIGraphicsBeginImageContextWithOptions(size, false, screenScale)

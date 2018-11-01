@@ -473,16 +473,11 @@ private extension TextView {
   /// latter fixes the typing font change due to the insertion of an emoji character
   /// (typing font changes somehow are reflected in `UITextView.font` parameter).
   func fixTypingFont() {
-    let fontAttribute = NSAttributedString.Key.font.rawValue
-    guard (convertFromNSAttributedStringKeyDictionary(typingAttributes)[fontAttribute] as? UIFont)?.fontName == "AppleColorEmoji" else {
+    let fontAttribute = NSAttributedString.Key.font
+    guard (typingAttributes[fontAttribute] as? UIFont)?.fontName == "AppleColorEmoji" else {
       return
     }
     
-    convertFromNSAttributedStringKeyDictionary(typingAttributes)[fontAttribute] = _font
+    typingAttributes[fontAttribute] = _font
   }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKeyDictionary(_ input: [NSAttributedString.Key: Any]) -> [String: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
 }

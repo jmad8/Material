@@ -95,12 +95,12 @@ open class Layer: CAShapeLayer {
   
   /// Determines how content should be aligned within the visualLayer's bounds.
   @IBInspectable
-  open override var contentsGravity: String {
+  open override var contentsGravity: CALayerContentsGravity {
     get {
-      return convertFromCALayerContentsGravity(visualLayer.contentsGravity)
+      return visualLayer.contentsGravity
     }
     set(value) {
-      visualLayer.contentsGravity = convertToCALayerContentsGravity(value)
+      visualLayer.contentsGravity = value
     }
   }
   
@@ -180,9 +180,4 @@ fileprivate extension Layer {
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToCALayerContentsGravity(_ input: String) -> CALayerContentsGravity {
 	return CALayerContentsGravity(rawValue: input)
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromCALayerContentsGravity(_ input: CALayerContentsGravity) -> String {
-	return input.rawValue
 }

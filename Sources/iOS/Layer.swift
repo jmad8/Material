@@ -89,7 +89,7 @@ open class Layer: CAShapeLayer {
   /// A Preset for the contentsGravity property.
   open var contentsGravityPreset: Gravity {
     didSet {
-      contentsGravity = GravityToValue(gravity: contentsGravityPreset)
+      contentsGravity = convertToCALayerContentsGravity(GravityToValue(gravity: contentsGravityPreset))
     }
   }
   
@@ -97,10 +97,10 @@ open class Layer: CAShapeLayer {
   @IBInspectable
   open override var contentsGravity: String {
     get {
-      return visualLayer.contentsGravity
+      return convertFromCALayerContentsGravity(visualLayer.contentsGravity)
     }
     set(value) {
-      visualLayer.contentsGravity = value
+      visualLayer.contentsGravity = convertToCALayerContentsGravity(value)
     }
   }
   
@@ -175,4 +175,14 @@ fileprivate extension Layer {
     visualLayer.frame = bounds
     visualLayer.cornerRadius = cornerRadius
   }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCALayerContentsGravity(_ input: String) -> CALayerContentsGravity {
+	return CALayerContentsGravity(rawValue: input)
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromCALayerContentsGravity(_ input: CALayerContentsGravity) -> String {
+	return input.rawValue
 }

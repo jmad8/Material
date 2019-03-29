@@ -16,10 +16,6 @@ Pod::Spec.new do |s|
 		s.ios.deployment_target = '8.0'
 		s.ios.source_files = 'Sources/**/*.swift'
 		s.requires_arc = true
-		s.resource_bundles = {
-			'com.cosmicmind.material.icons' => ['Sources/**/*.xcassets'],
-			'com.cosmicmind.material.fonts' => ['Sources/**/*.ttf']
-		}
 
 		s.dependency 'Motion', '~> 1.4.3'
 	end

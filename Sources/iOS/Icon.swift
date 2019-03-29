@@ -31,23 +31,13 @@
 import UIKit
 
 public struct Icon {
-  /// An internal reference to the icons bundle.
-  private static var internalBundle: Bundle?
   
   /**
    A public reference to the icons bundle, that aims to detect
    the correct bundle to use.
    */
   public static var bundle: Bundle {
-    if nil == Icon.internalBundle {
-      Icon.internalBundle = Bundle(for: View.self)
-      let url = Icon.internalBundle!.resourceURL!
-      let b = Bundle(url: url.appendingPathComponent("com.cosmicmind.material.icons.bundle"))
-      if let v = b {
-        Icon.internalBundle = v
-      }
-    }
-    return Icon.internalBundle!
+    return Bundle(for: View.self)
   }
   
   /// Get the icon by the file name.
